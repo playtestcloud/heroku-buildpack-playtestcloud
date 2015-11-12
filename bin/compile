@@ -4,10 +4,10 @@ BUILD_DIR=$1
 CACHE_DIR=$2
 
 echo "-----> Install ffmpeg"
-sudo apt-get -y -qq install software-properties-common
-sudo add-apt-repository -y ppa:mc3man/trusty-media
-sudo apt-get -y -qq update
-sudo apt-get -y -qq install ffmpeg
+apt-get -y -qq install software-properties-common
+add-apt-repository -y ppa:mc3man/trusty-media
+apt-get -y -qq update
+apt-get -y -qq install ffmpeg
 
 echo "-----> Install wav2png"
 apt-get -y -qq install make g++ libsndfile1-dev libpng++-dev libpng12-dev libboost-program-options-dev git
@@ -15,28 +15,3 @@ cd $CACHE_DIR
 git clone https://github.com/beschulz/wav2png
 cd wav2png/build
 make all
-
-# /usr/bin/ffmpeg
-# $VENDOR/wav2png/build/wav2png
-
-# indent() {
-#   sed -u 's/^/       /'
-# }
-
-# echo "-----> Install ffmpeg"
-# BUILD_DIR=$1
-# VENDOR_DIR="vendor"
-# DOWNLOAD_URL="http://flect.github.io/heroku-binaries/libs/ffmpeg.tar.gz"
-
-# echo "DOWNLOAD_URL = " $DOWNLOAD_URL | indent
-
-# cd $BUILD_DIR
-# mkdir -p $VENDOR_DIR
-# cd $VENDOR_DIR
-# curl -L --silent $DOWNLOAD_URL | tar xz
-
-# echo "exporting PATH and LIBRARY_PATH" | indent
-# PROFILE_PATH="$BUILD_DIR/.profile.d/ffmpeg.sh"
-# mkdir -p $(dirname $PROFILE_PATH)
-# echo 'export PATH="$PATH:$HOME/vendor/ffmpeg/bin"' >> $PROFILE_PATH
-# echo 'export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$HOME/vendor/ffmpeg/lib"' >> $PROFILE_PATH
