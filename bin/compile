@@ -3,14 +3,22 @@
 BUILD_DIR=$1
 CACHE_DIR=$2
 
+echo "-----> Preparing APT"
+APT_CACHE_DIR="$CACHE_DIR/apt/cache"
+APT_STATE_DIR="$CACHE_DIR/apt/state"
+mkdir -p "$APT_CACHE_DIR/archives/partial"
+mkdir -p "$APT_STATE_DIR/lists/partial"
+APT_OPTIONS="-y -o debug::nolocking=true -o dir::cache=$APT_CACHE_DIR -o dir::state=$APT_STATE_DIR"
+apt-get $APT_OPTIONS update
+
 echo "-----> Install ffmpeg"
-apt-get -y -qq install software-properties-common
+apt-get $APT_OPTIONS install software-properties-common
 add-apt-repository -y ppa:mc3man/trusty-media
-apt-get -y -qq update
-apt-get -y -qq install ffmpeg
+apt-get $APT_OPTIONS update
+apt-get $APT_OPTIONS install ffmpeg
 
 echo "-----> Install wav2png"
-apt-get -y -qq install make g++ libsndfile1-dev libpng++-dev libpng12-dev libboost-program-options-dev git
+apt-get $APT_OPTIONS install make g++ libsndfile1-dev libpng++-dev libpng12-dev libboost-program-options-dev git
 cd $CACHE_DIR
 git clone https://github.com/beschulz/wav2png
 cd wav2png/build
