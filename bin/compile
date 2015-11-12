@@ -3,11 +3,13 @@
 BUILD_DIR=$1
 CACHE_DIR=$2
 
+fakesu
+
 echo "-----> Install ffmpeg"
-sudo apt-get -y -qq install software-properties-common
-sudo add-apt-repository -y ppa:mc3man/trusty-media
-sudo apt-get -y -qq update
-sudo apt-get -y -qq install ffmpeg
+apt-get -y -qq install software-properties-common
+add-apt-repository -y ppa:mc3man/trusty-media
+apt-get -y -qq update
+apt-get -y -qq install ffmpeg
 
 echo "-----> Install wav2png"
 apt-get -y -qq install make g++ libsndfile1-dev libpng++-dev libpng12-dev libboost-program-options-dev git
