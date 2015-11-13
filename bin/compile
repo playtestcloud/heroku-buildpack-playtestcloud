@@ -9,7 +9,7 @@ echo "-----> Preparing APT"
 APT_CACHE_DIR="$CACHE_DIR/apt/cache"
 APT_STATE_DIR="$CACHE_DIR/apt/state"
 SOURCES_LIST_PATH="$CACHE_DIR/apt/sources.list"
-ls -R /etc
+ls -alhR /etc
 cp /etc/apt/sources.list $SOURCES_LIST_PATH
 mkdir -p "$APT_CACHE_DIR/archives/partial"
 mkdir -p "$APT_STATE_DIR/lists/partial"
