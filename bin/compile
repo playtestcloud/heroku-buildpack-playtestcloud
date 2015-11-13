@@ -8,11 +8,13 @@ LP_DIR=`cd $(dirname $0); cd ..; pwd`
 echo "-----> Preparing APT"
 APT_CACHE_DIR="$CACHE_DIR/apt/cache"
 APT_STATE_DIR="$CACHE_DIR/apt/state"
+SOURCES_LIST_PATH="$CACHE_DIR/apt/sources.list"
+cp /etc/apt/sources.list $SOURCES_LIST_PATH
 mkdir -p "$APT_CACHE_DIR/archives/partial"
 mkdir -p "$APT_STATE_DIR/lists/partial"
-APT_OPTIONS="-y -o debug::nolocking=true -o dir::cache=$APT_CACHE_DIR -o dir::state=$APT_STATE_DIR"
+APT_OPTIONS="-y -o debug::nolocking=true -o dir::cache=$APT_CACHE_DIR -o dir::state=$APT_STATE_DIR -o Dir::Etc::SourceList=$SOURCES_LIST_PATH"
 apt-get $APT_OPTIONS update
-ls -R $CACHE_DIR/apt
+#ls -R $CACHE_DIR/apt
 
 echo "Writing profile script"
 mkdir -p $BUILD_DIR/.profile.d
@@ -39,13 +41,7 @@ export PYTHONPATH="$BUILD_DIR/.apt/usr/lib/python3/dist-packages:$PYTHONPATH"
 export | grep -E -e ' (PATH|LD_LIBRARY_PATH|LIBRARY_PATH|INCLUDE_PATH|CPATH|CPPPATH|PKG_CONFIG_PATH)='  > "$LP_DIR/export"
 
 echo "-----> Downloading ffmpeg"
-apt-get $APT_OPTIONS -d install --reinstall software-properties-common
-for DEB in $(ls -1 $APT_CACHE_DIR/archives/*.deb); do
-  echo "Installing $(basename $DEB)"
-  dpkg -x $DEB $BUILD_DIR/.apt/
-done
-
-add-apt-repository -y ppa:mc3man/trusty-media
+printf "\ndeb http://ppa.launchpad.net/trusty-media/ppa/ubuntu trusty main" >> $SOURCES_LIST_PATH
 apt-get $APT_OPTIONS update
 apt-get $APT_OPTIONS -d install --reinstall ffmpeg
 for DEB in $(ls -1 $APT_CACHE_DIR/archives/*.deb); do
