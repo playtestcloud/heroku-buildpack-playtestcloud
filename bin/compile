@@ -73,7 +73,7 @@ for DEB in $(ls -1 $APT_CACHE_DIR/archives/*.deb); do
 done
 
 echo "-----> Install wav2png"
-apt-get $APT_OPTIONS -d install --reinstall libsndfile1-dev libpng++-dev libpng12-0 libboost-program-options-dev git
+apt-get $APT_OPTIONS -d install --reinstall libsndfile1 libsndfile1-dev libpng++-dev libpng12-0 libboost-program-options-dev git
 for DEB in $(ls -1 $APT_CACHE_DIR/archives/*.deb); do
   echo "Installing $(basename $DEB)"
   dpkg -x $DEB $BUILD_DIR/.apt/
