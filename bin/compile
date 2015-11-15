@@ -83,3 +83,4 @@ cd $BUILD_DIR
 git clone https://github.com/playtestcloud/wav2png
 cd wav2png/build
 make all
+export PATH="\$HOME/wav2png/bin/Linux:\$PATH"
