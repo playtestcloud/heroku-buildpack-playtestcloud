@@ -80,16 +80,16 @@ EOF
 
 
 topic "Install wav2png"
-apt-get $APT_OPTIONS -d install --reinstall libsndfile1 libsndfile1-dev libpng++-dev libpng12-0 libboost-program-options-dev git
+apt-get $APT_OPTIONS -d install --reinstall libsndfile1 libsndfile1-dev libpng++-dev libpng12-0 libboost-program-options-dev git | indent
 for DEB in $(ls -1 $APT_CACHE_DIR/archives/*.deb); do
   echo "Installing $(basename $DEB)" | indent
   dpkg -x $DEB $BUILD_DIR/.apt/ | indent
 done
 
 cd $BUILD_DIR
-git clone https://github.com/playtestcloud/wav2png
+git clone https://github.com/playtestcloud/wav2png | indent
 cd wav2png/build
-make all
+make all | indent
 echo "Amending profile script for wav2png" | indent
 cat <<EOF >$BUILD_DIR/.profile.d/002_apt.sh
 export PATH="\$HOME/wav2png/bin/Linux:\$PATH"
