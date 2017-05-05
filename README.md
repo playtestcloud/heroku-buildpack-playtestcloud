@@ -1,5 +1,4 @@
 Heroku buildpack: PlaytestCloud dependencies
 ============================================
 
-* ffmpeg
-* wav2png
+Clones, compiles and installs `wav2png`.
