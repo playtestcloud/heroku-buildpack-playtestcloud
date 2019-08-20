@@ -1,4 +1,4 @@
 Heroku buildpack: PlaytestCloud dependencies
 ============================================
 
-Clones, compiles and installs `wav2png`.
+Clones, compiles and installs `wav2png` and `bundletool`.

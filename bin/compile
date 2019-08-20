@@ -23,7 +23,7 @@ CACHE_DIR=$2
 LP_DIR=`cd $(dirname $0); cd ..; pwd`
 
 topic "Install wav2png"
-
+mkdir -p $BUILD_DIR/.profile.d
 cd $BUILD_DIR
 git clone https://github.com/playtestcloud/wav2png | indent
 cd wav2png/build
@@ -32,4 +32,12 @@ make all | indent
 echo "Amending profile script for wav2png" | indent
 cat <<EOF >$BUILD_DIR/.profile.d/002_apt.sh
 export PATH="\$HOME/wav2png/bin/Linux:\$PATH"
+EOF
+
+topic "Install bundletool"
+cd $BUILD_DIR
+wget https://github.com/google/bundletool/releases/download/0.10.2/bundletool-all-0.10.2.jar
+echo "Amending profile script for bundletool" | indent
+cat <<EOF >$BUILD_DIR/.profile.d/bundletool.sh
+alias bundletool="java -jar \$HOME/bundletool-all-0.10.2.jar"
 EOF
