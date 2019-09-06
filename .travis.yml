@@ -1,0 +1,10 @@
+language: bash
+before_install:
+- sudo apt-get install -y libsndfile1-dev libpng++-dev libpng12-dev libboost-program-options-dev
+- curl --silent https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/shunit2/shunit2-2.1.6.tgz | tar xz -C /tmp/
+- git clone https://github.com/heroku/heroku-buildpack-testrunner.git /tmp/testrunner
+script: "/tmp/testrunner/bin/run -c ."
+env:
+  global:
+  - SHUNIT_HOME="/tmp/shunit2-2.1.6"
+
